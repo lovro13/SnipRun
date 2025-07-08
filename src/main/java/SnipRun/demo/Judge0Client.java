@@ -1,9 +1,6 @@
-package com.sniprun;
+package SnipRun.demo;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestClient;
 
 @Service
@@ -17,5 +14,15 @@ public class Judge0Client {
                 .defaultHeader("x-rapidapi-host", "judge0-ce.p.rapidapi.com")
                 .defaultHeader("Content-Type", "application/json")
                 .build();
+    }
+
+    public String createSubmission()  {
+        return this.restClient.post()
+                .uri("/submissions?base64_encoded=true&wait=false&fields=*")
+                .body("""
+                        {"language_id":52,"source_code":"I2luY2x1ZGUgPHN0ZGlvLmg+CgppbnQgbWFpbih2b2lkKSB7CiAgY2hhciBuYW1lWzEwXTsKICBzY2FuZigiJXMiLCBuYW1lKTsKICBwcmludGYoImhlbGxvLCAlc1xuIiwgbmFtZSk7CiAgcmV0dXJuIDA7Cn0=","stdin":"SnVkZ2Uw"}
+                        """)
+                .retrieve()
+                .body(String.class);
     }
 }
